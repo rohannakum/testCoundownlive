@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer Coundown</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Orbitron&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url(./images/image4.jpg);
+            backdrop-filter: blur(5px);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            font-family: 'Lemon', serif;
+            /* font-family: 'Orbitron', sans-serif; */
+        }
+
+        .mainDiv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* === Input Div CSS === */
+        .inputdiv {
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .inputDiv label {
+            margin: 10px;
+            font-family: 'Lemon', serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: rgb(237, 84, 19);
+        }
+
+        .inputDiv input {
+            height: 35px;
+            text-align: center;
+            font-size: 30px;
+            border: 2px solid orangered;
+            color: orangered;
+            background-color: hsl(34, 78%, 91%, 0.500);
+        }
+
+        .inputDiv button {
+            width: 150px;
+            height: 40px;
+            text-align: center;
+            font-size: 28px;
+            border: 4px solid orangered;
+            border-radius: 10px;
+            color: #ff4400d7;
+            background-color: hsl(34, 78%, 91%, 0.500);
+        }
+
+        .inputDiv button:hover {
+            color: #ff4400ec;
+            background-color: hsl(34, 78%, 91%, 0.700);
+
+        }
+
+        /* === Output Div CSS === */
+        .outputDiv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .outputDivForSingleInput {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 30px;
+        }
+
+        .outputDivForSingleInput input {
+            width: 90px;
+            height: 85px;
+            text-align: center;
+            font-size: 40px;
+            font-weight: bolder;
+            font-family: 'Orbitron', sans-serif;
+            color: #8a1515;
+            background-color: transparent;
+            border-color: orange;
+            border-top: 0px;
+            border-right: 0px;
+            border-left: 0px;
+            border-bottom: 4px solid rgb(220, 85, 23);
+        }
+
+        .outputDivForSingleInput label {
+            margin: 10px;
+            font-size: 40px;
+            font-weight: bolder;
+            color: #9b583c;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="mainDiv">
+
+
+        <div class="inputDiv">
+            <label for="input1">Enter Ending Date :</label>
+            <input type="datetime-local" id="input1">
+            <button id="button1" onclick="startCountdown()">Start</button>
+        </div>
+
+
+        <div class="outputDiv">
+
+            <div class="outputDivForSingleInput">
+                <input type="text" id="output1" disabled>
+                <label for="output2">Months</label>
+            </div>
+            <div class="outputDivForSingleInput">
+                <input type="text" id="output2" disabled>
+                <label for="output3">Days</label>
+            </div>
+            <div class="outputDivForSingleInput">
+                <input type="text" id="output3" disabled>
+                <label for="output4">Hours</label>
+            </div>
+            <div class="outputDivForSingleInput">
+                <input type="text" id="output4" disabled>
+                <label for="output5">Minuts</label>
+            </div>
+            <div class="outputDivForSingleInput">
+                <input type="text" id="output5" disabled>
+                <label for="output6">Seconds</label>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- JavaScript -->
+
+    <script>
+        /* === JavaScript For Timer === */
+
+        var abc;
+
+        function startCountdown() {
+            abc = setInterval(selectDateTime, 1000);
+        }
+
+        // functon for input value
+
+        function selectDateTime() {
+
+            var testDate = document.getElementById("input1").value;
+            console.log("test Date" + " " + testDate)
+
+            // conver date 
+
+            var endDate = new Date(testDate);
+            console.log("Date You Enter :" + " " + endDate);
+
+            // diffrence between Two Date 
+
+            var curruntTime = new Date();
+            console.log("Current Date Date :" + " " + curruntTime);
+            var dif = endDate - curruntTime;
+            console.log("Diffrence in mili Second :" + "" + dif);
+
+
+            // calculation days,hourse,minutes
+
+            /*
+            1 day = 24hr
+            24 hr = 60 min
+            1 min = 60 sec
+            1 sec =1000 miliSec 
+        
+            convert in days = miliSecond/(1000*60*60*24)
+            convert in hr = miliSecond/(1000*60*60)
+            convert in min = miliSecond/(1000*60)
+            convert in sec = miliSecond/(1000)
+        
+            */
+
+            var months = parseInt(dif / (1000 * 60 * 60 * 24 * 30));
+            console.log("Dyas :" + " " + months);
+
+            var days = parseInt(dif / (1000 * 60 * 60 * 24));
+            console.log("Dyas :" + " " + days);
+
+            var hr = dif / (1000 * 60 * 60);
+            var hr2 = parseInt(hr) % 24;
+            console.log("hr :" + " " + hr2);
+
+            var min2 = dif / (1000 * 60);
+            var min3 = parseInt(min2) % 60;
+            console.log("min :" + " " + min3);
+
+
+            var sec2 = dif / (1000);
+            var sec3 = parseInt(sec2) % 60;
+            console.log("min :" + " " + sec3);
+
+            if (sec3 == 0 && min3 == 0 && hr2 == 0 && days == 0) {
+
+                clearInterval(abc);
+
+            }
+
+            document.getElementById("output1").value = months;
+            document.getElementById("output2").value = days;
+            document.getElementById("output3").value = hr2;
+            document.getElementById("output4").value = min3;
+            document.getElementById("output5").value = sec3;
+
+        }
+
+    </script>
+</body>
+
+</html>
